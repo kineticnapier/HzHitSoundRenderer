@@ -1,0 +1,61 @@
+# Visual Studio / MSBuild
+.vs/
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.csproj.user
+
+# Build outputs
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+artifacts/
+dist/
+publish/
+releases/
+TestResults/
+
+# Generated binaries and packages
+*.pdb
+*.mdb
+*.cache
+*.tmp
+*.log
+*.nupkg
+*.snupkg
+*.zip
+
+# NuGet
+packages/
+.nuget/
+
+# Local ADOFAI / Unity / UMM assemblies
+# The project resolves these through the ADOFAI_DIR environment variable.
+lib/
+libs/
+references/
+References/
+Managed/
+ADOFAI_Data/
+UnityModManager/
+
+# Installed/test copies of the mod
+Mods/
+HzHitSoundRenderer.dll
+
+# Runtime-generated UMM settings
+Settings.xml
+settings.xml
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
