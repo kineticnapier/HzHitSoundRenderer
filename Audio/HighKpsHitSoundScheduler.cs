@@ -58,7 +58,8 @@ namespace HzHitSoundRenderer.Audio
         private int _totalEvents;
         private double _firstTime;
         private double _lastTime;
-        private int _playbackSceneHandle = -1;
+        private int _playbackSceneHash;
+        private bool _hasPlaybackScene;
 
         public static string StatusText = "No generated hitSound playback.";
 
@@ -100,7 +101,9 @@ namespace HzHitSoundRenderer.Audio
 
         private void OnSceneUnloaded(Scene scene)
         {
-            if (_playbackSceneHandle >= 0 && scene.handle == _playbackSceneHandle)
+            // Scene.handle changed from int to SceneHandle in Unity 6. Scene's own
+            // stable hash remains an int in both Unity versions.
+            if (_hasPlaybackScene && scene.GetHashCode() == _playbackSceneHash)
             {
                 StopAllGeneratedAudio("playback scene unloaded");
             }
@@ -170,7 +173,8 @@ namespace HzHitSoundRenderer.Audio
                 _instance._segments.Clear();
                 _instance._nextSegmentIndex = 0;
                 _instance._totalEvents = 0;
-                _instance._playbackSceneHandle = -1;
+                _instance._playbackSceneHash = 0;
+                _instance._hasPlaybackScene = false;
                 _instance._playbackId++;
             }
         }
@@ -348,7 +352,8 @@ namespace HzHitSoundRenderer.Audio
                 return false;
             }
 
-            _playbackSceneHandle = SceneManager.GetActiveScene().handle;
+            _playbackSceneHash = SceneManager.GetActiveScene().GetHashCode();
+            _hasPlaybackScene = true;
 
             events.Sort(delegate (HitSoundEvent a, HitSoundEvent b)
             {

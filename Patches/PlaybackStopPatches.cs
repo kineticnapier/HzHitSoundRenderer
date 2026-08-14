@@ -1,3 +1,5 @@
+using System;
+using System.Reflection;
 using HarmonyLib;
 using HzHitSoundRenderer.Audio;
 
@@ -62,9 +64,25 @@ namespace HzHitSoundRenderer.Patches
         }
     }
 
-    [HarmonyPatch(typeof(ADOBase), "LoadScene")]
-    internal static class AdoBaseLoadSceneStopPatch
+    [HarmonyPatch]
+    internal static class SceneLoadStopPatch
     {
+        private static MethodBase TargetMethod()
+        {
+            MethodInfo legacy = AccessTools.Method(
+                typeof(ADOBase), "LoadScene", new[] { typeof(string) });
+            if (legacy != null)
+            {
+                return legacy;
+            }
+
+            // v3.3.1 moved scene loading from ADOBase to scrLoader.
+            Type loaderType = AccessTools.TypeByName("scrLoader");
+            return loaderType == null
+                ? null
+                : AccessTools.Method(loaderType, "LoadScene", new[] { typeof(string) });
+        }
+
         private static void Prefix()
         {
             HighKpsHitSoundScheduler.StopAllGeneratedAudio("scene change");
