@@ -23,6 +23,10 @@
       <HintPath>$(GameManagedDir)\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="netstandard">
+      <HintPath>$(GameManagedDir)\netstandard.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="RDTools">
       <HintPath>$(GameManagedDir)\RDTools.dll</HintPath>
       <Private>False</Private>
