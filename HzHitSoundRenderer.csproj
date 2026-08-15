@@ -15,6 +15,9 @@
     <GameManagedDir Condition=" '$(GameManagedDir)' == '' and Exists('$(DefaultSteamGameDir)\A Dance of Fire and Ice_Data\Managed\Assembly-CSharp.dll') ">$(DefaultSteamGameDir)\A Dance of Fire and Ice_Data\Managed</GameManagedDir>
     <GameManagedDir Condition=" '$(GameManagedDir)' == '' ">$(MSBuildProjectDirectory)\reference\Managed</GameManagedDir>
     <UmmDir Condition=" '$(UmmDir)' == '' ">$(GameManagedDir)\UnityModManager</UmmDir>
+    <!-- Unity 6 defines Span<T> in its own mscorlib. Only override the compiler
+         framework path after the selected Managed directory has been validated. -->
+    <FrameworkPathOverride Condition=" '$(FrameworkPathOverride)' == '' and Exists('$(GameManagedDir)\mscorlib.dll') ">$(GameManagedDir)</FrameworkPathOverride>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
