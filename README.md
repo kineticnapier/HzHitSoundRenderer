@@ -24,12 +24,20 @@ UMMで有効化し、再生方式を選んで通常どおり譜面を再生し�
 - A Dance of Fire and Ice v3.3.1
 - Unity Mod Manager
 - .NET Framework 4.8をビルドできるWindows環境
+- ADOFAIAudioSyncとの併用時は、途中再生の同期確定後に事前焼き音声を開始します
 
 ## ビルド
 
-`ADOFAI_GAME_MANAGED_DIR`へゲームの`Managed`フォルダーを指定してからReleaseビルドします。
+リポジトリ直下でビルドスクリプトを実行すると、ReleaseビルドとUnity Mod Manager用ZIPの作成を行います。Steamの標準インストール先は自動検出されます。
 
 ```powershell
-$env:ADOFAI_GAME_MANAGED_DIR = "D:\SteamLibrary\steamapps\common\A Dance of Fire and Ice\A Dance of Fire and Ice_Data\Managed"
-dotnet build -c Release
+.\build.ps1
 ```
+
+別のSteamライブラリへインストールしている場合は、`Managed`フォルダーを指定します。
+
+```powershell
+.\build.ps1 -GameManagedDir "D:\SteamLibrary\steamapps\common\A Dance of Fire and Ice\A Dance of Fire and Ice_Data\Managed"
+```
+
+生成物は`artifacts\HzHitSoundRenderer-v<Version>.zip`です。ビルドだけ行う場合は`-SkipPackage`、Modsフォルダーへ直接配置する場合は`-DeployDir`を使用できます。

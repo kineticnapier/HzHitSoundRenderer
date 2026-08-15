@@ -5,9 +5,9 @@
     <Nullable>disable</Nullable>
     <AssemblyName>HzHitSoundRenderer</AssemblyName>
     <RootNamespace>HzHitSoundRenderer</RootNamespace>
-    <Version>1.0.1</Version>
-    <AssemblyVersion>1.0.1.0</AssemblyVersion>
-    <FileVersion>1.0.1.0</FileVersion>
+    <Version>1.0.2</Version>
+    <AssemblyVersion>1.0.2.0</AssemblyVersion>
+    <FileVersion>1.0.2.0</FileVersion>
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <GameManagedDir Condition=" '$(GameManagedDir)' == '' and '$(ADOFAI_GAME_MANAGED_DIR)' != '' and Exists('$(ADOFAI_GAME_MANAGED_DIR)\Assembly-CSharp.dll') ">$(ADOFAI_GAME_MANAGED_DIR)</GameManagedDir>
     <GameManagedDir Condition=" '$(GameManagedDir)' == '' and '$(ADOFAI_DIR)' != '' and Exists('$(ADOFAI_DIR)\A Dance of Fire and Ice_Data\Managed\Assembly-CSharp.dll') ">$(ADOFAI_DIR)\A Dance of Fire and Ice_Data\Managed</GameManagedDir>
