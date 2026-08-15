@@ -268,7 +268,8 @@ namespace HzHitSoundRenderer.Patches
                 {
                     if (AudioManager.Instance != null)
                     {
-                        clip = AudioManager.Instance.FindOrLoadAudioClip(clipName, null);
+                        clip = GameVersionCompat.FindOrLoadAudioClip(
+                            AudioManager.Instance, clipName);
                     }
                 }
                 catch (Exception ex)

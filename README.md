@@ -18,3 +18,18 @@ UMMで有効化し、再生方式を選んで通常どおり譜面を再生し�
 - `全体1本焼き`: 境界ノイズを避けるため全体を1本のAudioClipへ生成
 
 音が強すぎる場合は `ヒット音倍率` を下げてください。音量を1倍より上へ増幅する機能や音色加工はありません。
+
+## 対応環境
+
+- A Dance of Fire and Ice v3.3.1
+- Unity Mod Manager
+- .NET Framework 4.8をビルドできるWindows環境
+
+## ビルド
+
+`ADOFAI_GAME_MANAGED_DIR`へゲームの`Managed`フォルダーを指定してからReleaseビルドします。
+
+```powershell
+$env:ADOFAI_GAME_MANAGED_DIR = "D:\SteamLibrary\steamapps\common\A Dance of Fire and Ice\A Dance of Fire and Ice_Data\Managed"
+dotnet build -c Release
+```

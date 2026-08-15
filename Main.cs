@@ -9,6 +9,9 @@ namespace HzHitSoundRenderer
 {
     public static class Main
     {
+        internal static readonly string Version =
+            typeof(Main).Assembly.GetName().Version.ToString(3);
+
         internal static UnityModManager.ModEntry ModEntry;
         internal static Settings Settings;
         internal static bool Enabled;
@@ -82,7 +85,7 @@ namespace HzHitSoundRenderer
             }
             ClampRawSettings();
 
-            GUILayout.Label("HzHitSoundRenderer v1.0.0  高KPS/Hz Charting用ヒット音レンダラー");
+            GUILayout.Label("HzHitSoundRenderer v" + Version + "  高KPS/Hz Charting用ヒット音レンダラー");
             GUILayout.Label("全ヒットを間引かず、元のヒット音PCMをそのまま重ねます。リミッター/ソフトクリップ/密度音量/音色加工はかけません。");
 
             GUILayout.Space(6f);
@@ -187,7 +190,7 @@ namespace HzHitSoundRenderer
 
             GUILayout.Space(8f);
             GUILayout.Label("無加工方針");
-            GUILayout.Label("v1.0.0ではフェードアウト、密度音量、リミッター、ソフトクリップ、最終音量ブーストをレンダラーで使用しません。");
+            GUILayout.Label("v1.0.0以降ではフェードアウト、密度音量、リミッター、ソフトクリップ、最終音量ブーストをレンダラーで使用しません。");
             GUILayout.Label("音が割れる場合は、倍率を下げるか、ADOFAI側の曲音量/ヒット音量で調整してください。");
         }
 
@@ -221,7 +224,7 @@ namespace HzHitSoundRenderer
 
         private static void ApplyLoudPreset()
         {
-            // Kept only for old builds/references. v1.0.0 does not provide a loud/processed preset.
+            // Kept only for old builds/references. v1.0.0 and later do not provide a loud/processed preset.
             ApplyHzPreviewPreset();
             Log("Loud preset is disabled in raw PCM mode; applied raw original PCM preset instead.");
         }
