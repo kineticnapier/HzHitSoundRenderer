@@ -24,6 +24,7 @@ UMMで有効化し、再生方式を選んで通常どおり譜面を再生し�
 - A Dance of Fire and Ice v3.3.1
 - Unity Mod Manager
 - .NET Framework 4.8をビルドできるWindows環境
+- ADOFAIAudioSyncとの併用時は、途中再生の同期確定後に事前焼き音声を開始します
 
 ## ビルド
 

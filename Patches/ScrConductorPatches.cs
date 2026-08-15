@@ -185,6 +185,18 @@ namespace HzHitSoundRenderer.Patches
                     return;
                 }
 
+                // AudioSync's checkpoint handshake lets scrController.Scrub make one
+                // provisional PlayHitTimes call, then rebuilds the timeline after the
+                // music playhead is confirmed. Consuming a pre-rendered track during the
+                // provisional call leaves nothing for the final timeline. Streaming mode
+                // is already safe because it can rebuild its segments on every call.
+                if (settings.RenderMode != RenderMode.StreamingSegments &&
+                    AudioSyncCompat.IsCheckpointHandshakeActive())
+                {
+                    HighKpsHitSoundScheduler.SetWaitingForFinalTimeline();
+                    return;
+                }
+
                 if (__instance == null || HitSoundsDataField == null || HitSoundField == null || TimeField == null || VolumeField == null)
                 {
                     Main.Error("Reflection failed: scrConductor.HitSoundsData fields were not found.");

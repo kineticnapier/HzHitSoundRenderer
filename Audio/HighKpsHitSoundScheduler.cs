@@ -226,6 +226,11 @@ namespace HzHitSoundRenderer.Audio
             return _instance.StartPlaybackInternal(events, mixerGroup);
         }
 
+        internal static void SetWaitingForFinalTimeline()
+        {
+            StatusText = "Waiting for AudioSync to confirm checkpoint timing.";
+        }
+
         private bool PrepareTrackInternal(List<HitSoundEvent> events, AudioMixerGroup mixerGroup)
         {
             Settings settings = Main.Settings;
