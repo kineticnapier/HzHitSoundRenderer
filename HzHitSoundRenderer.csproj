@@ -9,13 +9,12 @@
     <AssemblyVersion>1.0.1.0</AssemblyVersion>
     <FileVersion>1.0.1.0</FileVersion>
     <OutputPath>bin\$(Configuration)\</OutputPath>
-    <GameManagedDir Condition=" '$(GameManagedDir)' == '' and '$(ADOFAI_GAME_MANAGED_DIR)' != '' ">$(ADOFAI_GAME_MANAGED_DIR)</GameManagedDir>
-    <GameManagedDir Condition=" '$(GameManagedDir)' == '' and '$(ADOFAI_DIR)' != '' ">$(ADOFAI_DIR)\A Dance of Fire and Ice_Data\Managed</GameManagedDir>
+    <GameManagedDir Condition=" '$(GameManagedDir)' == '' and '$(ADOFAI_GAME_MANAGED_DIR)' != '' and Exists('$(ADOFAI_GAME_MANAGED_DIR)\Assembly-CSharp.dll') ">$(ADOFAI_GAME_MANAGED_DIR)</GameManagedDir>
+    <GameManagedDir Condition=" '$(GameManagedDir)' == '' and '$(ADOFAI_DIR)' != '' and Exists('$(ADOFAI_DIR)\A Dance of Fire and Ice_Data\Managed\Assembly-CSharp.dll') ">$(ADOFAI_DIR)\A Dance of Fire and Ice_Data\Managed</GameManagedDir>
+    <DefaultSteamGameDir>$([System.Environment]::GetFolderPath(SpecialFolder.ProgramFilesX86))\Steam\steamapps\common\A Dance of Fire and Ice</DefaultSteamGameDir>
+    <GameManagedDir Condition=" '$(GameManagedDir)' == '' and Exists('$(DefaultSteamGameDir)\A Dance of Fire and Ice_Data\Managed\Assembly-CSharp.dll') ">$(DefaultSteamGameDir)\A Dance of Fire and Ice_Data\Managed</GameManagedDir>
     <GameManagedDir Condition=" '$(GameManagedDir)' == '' ">$(MSBuildProjectDirectory)\reference\Managed</GameManagedDir>
     <UmmDir Condition=" '$(UmmDir)' == '' ">$(GameManagedDir)\UnityModManager</UmmDir>
-    <!-- Unity 6's managed assemblies target netstandard 2.1. Use the game's
-         framework facade set instead of the .NET Framework 4.8 netstandard 2.0 facade. -->
-    <FrameworkPathOverride Condition=" '$(FrameworkPathOverride)' == '' ">$(GameManagedDir)</FrameworkPathOverride>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
@@ -56,6 +55,13 @@
       <Private>False</Private>
     </Reference>
   </ItemGroup>
+
+  <Target Name="ValidateGameReferences" BeforeTargets="PrepareForBuild">
+    <Error Condition=" !Exists('$(GameManagedDir)\Assembly-CSharp.dll') "
+           Text="ADOFAI Managed DLLs were not found at '$(GameManagedDir)'. Set ADOFAI_GAME_MANAGED_DIR to the game's Managed folder." />
+    <Error Condition=" !Exists('$(UmmDir)\UnityModManager.dll') or !Exists('$(UmmDir)\0Harmony.dll') "
+           Text="Unity Mod Manager DLLs were not found at '$(UmmDir)'. Install UMM or pass UmmDir to dotnet build." />
+  </Target>
 
   <!--
     Set ADOFAI_GAME_MANAGED_DIR to the Managed folder, or ADOFAI_DIR to the
